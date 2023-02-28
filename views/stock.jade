@@ -1,0 +1,83 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title  StockMarket
+    link(rel='stylesheet', href='/stylesheets/style.css')    
+    link(href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css', rel='stylesheet')
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  body
+  if authorised || typeof stocks != 'undefined'
+    .sidebar
+      .logo-details
+        i.bx.bxl-c-plus-plus
+        span.logo_name StockMarket     
+      ul.nav-links
+        li
+          a(href='/')
+            i.bx.bx-grid-alt
+            span.links_name User Dashboard
+        li
+          a.active(href='/stock')
+            i.bx.bx-box
+            span.links_name Stock Data    
+        li.log_out
+          a(href='/exit')
+            i.bx.bx-log-out
+            span.links_name Log out         
+    section.home-section
+      nav
+        .sidebar-button
+          i.bx.bx-menu.sidebarBtn
+          span.dashboard Dashboard
+      .home-content
+       if authorised || typeof stocks != 'undefined'
+           table#stock.table.table-striped.table-bordered(style='width:100%')
+            thead
+              tr
+                th Company Name
+                th Company Code
+                th Date
+                th Open
+                th Close
+                th High
+                th Low
+                th Volume 
+                th AdjClose
+            tbody
+              each stock in stocks 
+                tr
+                  td= stock.company_name
+                  td= stock.symbol
+                  td= stock.date
+                  td= stock.open
+                  td= stock.close
+                  td= stock.high
+                  td= stock.low 
+                  td= stock.volume
+                  td= stock.adjclose
+            tfoot
+              tr
+                th Company Name
+                th Company Code
+                th Date
+                th Open
+                th Close
+                th High
+                th Low
+                th Volume 
+                th AdjClose
+    script(type='javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js')
+    script(type='javascript' src='/js/external.js')
+    script.
+      let sidebar = document.querySelector(".sidebar");
+      let sidebarBtn = document.querySelector(".sidebarBtn");
+      sidebarBtn.onclick = function() {
+      sidebar.classList.toggle("active");
+      if(sidebar.classList.contains("active")){
+      sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+      }else
+      sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+      }
+      
